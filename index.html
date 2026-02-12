@@ -5,8 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Our Valentine Journey ❤️</title>
 
+<!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
+<!-- GSAP Animation Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <link rel="stylesheet" href="style.css">
@@ -14,34 +16,47 @@
 
 <body>
 
+<!-- Floating Hearts Canvas -->
 <canvas id="heartsCanvas"></canvas>
 
-<!-- LOCK SCREEN -->
+<!-- ================= LOCK SCREEN ================= -->
 <section id="lock-screen" class="page active">
   <div class="glass-card">
+    
     <div class="image-frame">
-      <img src="assets/images/your-image.png">
+      <!-- IMPORTANT: match your image file name -->
+      <img src="images/download.jpg" alt="Special Memory">
     </div>
+
     <h1>Enter The Special Date</h1>
-    <input type="text" id="passwordInput" placeholder="DD MONTH">
+
+    <input type="text" id="passwordInput" placeholder="DD MONTH" autocomplete="off">
+
     <button id="unlockBtn">Unlock My Heart</button>
+
     <p id="errorMsg"></p>
+
   </div>
 </section>
 
-<!-- MUSIC BAR -->
+
+<!-- ================= MUSIC BAR ================= -->
 <div id="musicBar">
   <button id="playPause">▶</button>
   <div class="equalizer">
-    <span></span><span></span><span></span>
+    <span></span>
+    <span></span>
+    <span></span>
   </div>
 </div>
 
 <audio id="bgMusic" loop>
-  <source src="assets/music/romantic.mp3" type="audio/mpeg">
+  <!-- IMPORTANT: match your music file name -->
+  <source src="music/romantic.mp3" type="audio/mpeg">
 </audio>
 
-<!-- PROPOSAL -->
+
+<!-- ================= PROPOSAL PAGE ================= -->
 <section id="proposal" class="page">
   <h1 class="bigText">Will You Be My Valentine?</h1>
   <div class="buttons">
@@ -50,32 +65,58 @@
   </div>
 </section>
 
-<!-- QUIZ -->
+
+<!-- ================= QUIZ PAGE ================= -->
 <section id="quiz" class="page">
   <div class="glass-card quiz-card">
-    <div id="progressBar"><div></div></div>
+    <div id="progressBar">
+      <div></div>
+    </div>
     <div id="questionContainer"></div>
   </div>
 </section>
 
-<!-- ENVELOPE -->
+
+<!-- ================= LOVE LETTER PAGE ================= -->
 <section id="letterPage" class="page">
+
   <div class="envelope" id="envelope">
-    <div class="letter" id="letter"></div>
+    <div class="letter" id="letter">
+      <!-- Typed text will appear here -->
+    </div>
   </div>
+
   <button id="continueBtn">Continue</button>
+
 </section>
 
-<!-- MEMORY -->
+
+<!-- ================= MEMORY PAGE ================= -->
 <section id="memory" class="page">
+
   <div class="memory-container">
-    <div class="memory-item">💖 Our First Smile</div>
-    <div class="memory-item">💖 Our Crazy Talks</div>
-    <div class="memory-item">💖 Our Forever Promise</div>
+
+    <div class="memory-item">
+      💖 Our First Smile
+    </div>
+
+    <div class="memory-item">
+      💖 Our Crazy Talks
+    </div>
+
+    <div class="memory-item">
+      💖 Our Forever Promise
+    </div>
+
   </div>
+
   <h1 class="ending">Forever With You ❤️</h1>
+
 </section>
 
+
+<!-- Script -->
 <script src="script.js"></script>
+
 </body>
 </html>
