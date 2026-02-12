@@ -1,1 +1,162 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #3a001f, #7b003a);
+  overflow-x: hidden;
+  color: white;
+}
+
+/* PAGE SYSTEM */
+.page {
+  width: 100%;
+  min-height: 100vh;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+}
+
+.page.active {
+  display: flex;
+}
+
+/* LOCK SCREEN */
+.lock-container {
+  backdrop-filter: blur(20px);
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 0 40px rgba(255,0,90,0.4);
+}
+
+.image-frame {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #ff4da6;
+  margin-bottom: 20px;
+  box-shadow: 0 0 25px #ff4da6;
+}
+
+.image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1 {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+input {
+  padding: 12px;
+  border-radius: 30px;
+  border: none;
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 15px;
+  outline: none;
+}
+
+button {
+  padding: 12px 25px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  background: #ff4da6;
+  color: white;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+button:hover {
+  box-shadow: 0 0 15px #ff4da6;
+}
+
+/* MUSIC BAR */
+#musicBar {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(15px);
+  padding: 10px 15px;
+  border-radius: 20px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+}
+
+.equalizer span {
+  width: 4px;
+  height: 10px;
+  background: white;
+  display: inline-block;
+  animation: bounce 1s infinite ease-in-out;
+}
+
+.equalizer span:nth-child(2) { animation-delay: .2s; }
+.equalizer span:nth-child(3) { animation-delay: .4s; }
+
+@keyframes bounce {
+  0%,100%{height:10px;}
+  50%{height:20px;}
+}
+
+/* PROPOSAL */
+.buttons {
+  display: flex;
+  gap: 20px;
+}
+
+#yesBtn {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0%{transform: scale(1);}
+  50%{transform: scale(1.1);}
+  100%{transform: scale(1);}
+}
+
+/* QUIZ */
+.quiz-card {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(20px);
+  padding: 25px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 400px;
+}
+
+#progressBar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+#progressBar div {
+  height: 100%;
+  width: 0%;
+  background: #ff4da6;
+  border-radius: 10px;
+  transition: 0.4s;
+}
+
+/* MEMORY PAGE */
+.ending {
+  font-size: 3rem;
+  animation: pulse 2s infinite;
+}
