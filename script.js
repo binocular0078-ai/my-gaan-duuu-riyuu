@@ -87,3 +87,41 @@ document.getElementById("yesBtn").addEventListener("click", () => {
   proposal.classList.remove("active");
   quiz.classList.add("active");
 });
+const noBtn = document.getElementById("noBtn");
+let noClicks = 0;
+
+noBtn.addEventListener("click", () => {
+  noClicks++;
+
+  if(noClicks === 1) noBtn.innerText = "Why?";
+  else if(noClicks === 2) noBtn.innerText = "Mar khabi?";
+  else if(noClicks === 3) noBtn.innerText = "Breakup done";
+  else {
+    noBtn.style.position = "absolute";
+    noBtn.style.top = Math.random() * 80 + "%";
+    noBtn.style.left = Math.random() * 80 + "%";
+  }
+});
+document.getElementById("yesBtn").addEventListener("click", () => {
+
+  for(let i=0;i<20;i++){
+    let burst = document.createElement("div");
+    burst.className = "burstHeart";
+    document.body.appendChild(burst);
+
+    burst.style.left = Math.random()*100+"%";
+    burst.style.top = Math.random()*100+"%";
+
+    gsap.to(burst,{
+      y:-200,
+      opacity:0,
+      duration:1.5,
+      onComplete:()=>burst.remove()
+    });
+  }
+
+  gsap.to("#proposal",{opacity:0,duration:1,onComplete:()=>{
+    proposal.classList.remove("active");
+    quiz.classList.add("active");
+  }});
+});
