@@ -1,13 +1,24 @@
+/* =========================
+   FLOATING HEART PARTICLES
+========================= */
+
 const canvas = document.getElementById("heartsCanvas");
 const ctx = canvas.getContext("2d");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
 
 let hearts = [];
 
 class Heart {
   constructor() {
+    this.reset();
+  }
+  reset() {
     this.x = Math.random() * canvas.width;
     this.y = canvas.height + 20;
     this.size = Math.random() * 6 + 4;
@@ -16,10 +27,7 @@ class Heart {
   }
   update() {
     this.y -= this.speed;
-    if (this.y < -20) {
-      this.y = canvas.height + 20;
-      this.x = Math.random() * canvas.width;
-    }
+    if (this.y < -20) this.reset();
   }
   draw() {
     ctx.globalAlpha = this.opacity;
@@ -42,39 +50,75 @@ function animateHearts() {
   });
   requestAnimationFrame(animateHearts);
 }
-
 animateHearts();
+
+
+/* =========================
+   PAGE REFERENCES
+========================= */
+
+const lockScreen = document.getElementById("lock-screen");
+const proposal = document.getElementById("proposal");
+const quiz = document.getElementById("quiz");
+const letterPage = document.getElementById("letterPage");
+const memory = document.getElementById("memory");
 
 const passwordInput = document.getElementById("passwordInput");
 const unlockBtn = document.getElementById("unlockBtn");
 const errorMsg = document.getElementById("errorMsg");
 
-const lockScreen = document.getElementById("lock-screen");
-const proposal = document.getElementById("proposal");
-const quiz = document.getElementById("quiz");
-const memory = document.getElementById("memory");
-
 const musicBar = document.getElementById("musicBar");
 const bgMusic = document.getElementById("bgMusic");
 const playPause = document.getElementById("playPause");
 
+
+/* =========================
+   PAGE TRANSITION FUNCTION
+========================= */
+
+function goToPage(current, next) {
+  gsap.to(current, {
+    opacity: 0,
+    duration: 0.8,
+    onComplete: () => {
+      current.classList.remove("active");
+      next.classList.add("active");
+      gsap.fromTo(next, { opacity: 0 }, { opacity: 1, duration: 0.8 });
+    }
+  });
+}
+
+
+/* =========================
+   PASSWORD LOCK
+========================= */
+
 unlockBtn.addEventListener("click", () => {
   const input = passwordInput.value.trim().toUpperCase();
+
   if (input === "23 JANUARY") {
-    gsap.to(lockScreen, {opacity:0, duration:1, onComplete: () => {
-      lockScreen.classList.remove("active");
-      proposal.classList.add("active");
-      musicBar.style.display = "flex";
-      bgMusic.play();
-    }});
+
+    goToPage(lockScreen, proposal);
+
+    musicBar.style.display = "flex";
+    bgMusic.play();
+
   } else {
     errorMsg.innerText = "Wrong Date ❤️";
-    gsap.fromTo(lockScreen, {x:-10}, {x:10, repeat:5, yoyo:true, duration:0.1});
+    gsap.fromTo(lockScreen, 
+      { x: -10 }, 
+      { x: 10, repeat: 5, yoyo: true, duration: 0.1 }
+    );
   }
 });
 
+
+/* =========================
+   MUSIC BAR
+========================= */
+
 playPause.addEventListener("click", () => {
-  if(bgMusic.paused){
+  if (bgMusic.paused) {
     bgMusic.play();
     playPause.innerText = "⏸";
   } else {
@@ -83,63 +127,152 @@ playPause.addEventListener("click", () => {
   }
 });
 
-document.getElementById("yesBtn").addEventListener("click", () => {
-  proposal.classList.remove("active");
-  quiz.classList.add("active");
-});
+
+/* =========================
+   PROPOSAL PAGE
+========================= */
+
+const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
+
 let noClicks = 0;
 
 noBtn.addEventListener("click", () => {
   noClicks++;
 
-  if(noClicks === 1) noBtn.innerText = "Why?";
-  else if(noClicks === 2) noBtn.innerText = "Mar khabi?";
-  else if(noClicks === 3) noBtn.innerText = "Breakup done";
+  if (noClicks === 1) noBtn.innerText = "Why?";
+  else if (noClicks === 2) noBtn.innerText = "Mar khabi?";
+  else if (noClicks === 3) noBtn.innerText = "Breakup done";
   else {
     noBtn.style.position = "absolute";
     noBtn.style.top = Math.random() * 80 + "%";
     noBtn.style.left = Math.random() * 80 + "%";
   }
 });
-document.getElementById("yesBtn").addEventListener("click", () => {
 
-  for(let i=0;i<20;i++){
+yesBtn.addEventListener("click", () => {
+
+  // Heart burst animation
+  for (let i = 0; i < 25; i++) {
     let burst = document.createElement("div");
     burst.className = "burstHeart";
     document.body.appendChild(burst);
 
-    burst.style.left = Math.random()*100+"%";
-    burst.style.top = Math.random()*100+"%";
+    burst.style.left = Math.random() * 100 + "%";
+    burst.style.top = Math.random() * 100 + "%";
 
-    gsap.to(burst,{
-      y:-200,
-      opacity:0,
-      duration:1.5,
-      onComplete:()=>burst.remove()
+    gsap.to(burst, {
+      y: -200,
+      opacity: 0,
+      duration: 1.5,
+      onComplete: () => burst.remove()
     });
   }
 
-  gsap.to("#proposal",{opacity:0,duration:1,onComplete:()=>{
-    proposal.classList.remove("active");
-    quiz.classList.add("active");
-  }});
+  setTimeout(() => {
+    goToPage(proposal, quiz);
+    loadQuestion();
+  }, 800);
 });
-const letterText = "Hey, how are you ❤️\n\nFrom the moment you came into my life, everything became brighter.\nYou are my peace, my chaos, my forever.\n\nI promise to stay, to care, and to love you endlessly.";
+
+
+/* =========================
+   QUIZ SECTION
+========================= */
+
+const questions = [
+  {
+    question: "When did we first talk?",
+    options: ["Random Day", "Fate Day", "23 January", "Never"],
+    answer: 2
+  },
+  {
+    question: "What are we?",
+    options: ["Friends", "Enemies", "Soulmates", "Neighbors"],
+    answer: 2
+  },
+  {
+    question: "Forever means?",
+    options: ["Until bored", "Temporary", "Endless", "Few days"],
+    answer: 2
+  }
+];
+
+let currentQuestion = 0;
+
+const questionContainer = document.getElementById("questionContainer");
+const progressBar = document.querySelector("#progressBar div");
+
+function loadQuestion() {
+  const q = questions[currentQuestion];
+  questionContainer.innerHTML = "";
+
+  let questionEl = document.createElement("h2");
+  questionEl.innerText = q.question;
+  questionContainer.appendChild(questionEl);
+
+  q.options.forEach((option, index) => {
+    let btn = document.createElement("button");
+    btn.innerText = option;
+    btn.style.margin = "10px";
+    btn.onclick = () => checkAnswer(index);
+    questionContainer.appendChild(btn);
+  });
+
+  progressBar.style.width = ((currentQuestion) / questions.length) * 100 + "%";
+}
+
+function checkAnswer(selected) {
+  if (selected === questions[currentQuestion].answer) {
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+      loadQuestion();
+    } else {
+      progressBar.style.width = "100%";
+      setTimeout(() => {
+        goToPage(quiz, letterPage);
+        openLetter();
+      }, 800);
+    }
+  } else {
+    gsap.fromTo(questionContainer, 
+      { x: -10 }, 
+      { x: 10, repeat: 4, yoyo: true, duration: 0.1 }
+    );
+  }
+}
+
+
+/* =========================
+   LOVE LETTER
+========================= */
+
+const letterText = `Hey, how are you ❤️
+
+From the moment you entered my life, everything changed.
+You became my peace in chaos, my smile in sadness,
+and my forever in a temporary world.
+
+I promise to stay.
+I promise to care.
+I promise to love you endlessly.`;
+
+function openLetter() {
+  typeLetter();
+}
 
 function typeLetter() {
   const letter = document.getElementById("letter");
+  letter.innerHTML = "";
   let i = 0;
-  let interval = setInterval(()=>{
+
+  let interval = setInterval(() => {
     letter.innerHTML += letterText[i];
     i++;
-    if(i >= letterText.length) clearInterval(interval);
-  },40);
+    if (i >= letterText.length) clearInterval(interval);
+  }, 40);
 }
-function goToPage(current,next){
-  gsap.to(current,{opacity:0,blur:10,duration:0.8,onComplete:()=>{
-    current.classList.remove("active");
-    next.classList.add("active");
-    gsap.fromTo(next,{opacity:0},{opacity:1,duration:0.8});
-  }});
-}
+
+document.getElementById("continueBtn").addEventListener("click", () => {
+  goToPage(letterPage, memory);
+});
