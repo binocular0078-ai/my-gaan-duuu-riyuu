@@ -125,3 +125,21 @@ document.getElementById("yesBtn").addEventListener("click", () => {
     quiz.classList.add("active");
   }});
 });
+const letterText = "Hey, how are you ❤️\n\nFrom the moment you came into my life, everything became brighter.\nYou are my peace, my chaos, my forever.\n\nI promise to stay, to care, and to love you endlessly.";
+
+function typeLetter() {
+  const letter = document.getElementById("letter");
+  let i = 0;
+  let interval = setInterval(()=>{
+    letter.innerHTML += letterText[i];
+    i++;
+    if(i >= letterText.length) clearInterval(interval);
+  },40);
+}
+function goToPage(current,next){
+  gsap.to(current,{opacity:0,blur:10,duration:0.8,onComplete:()=>{
+    current.classList.remove("active");
+    next.classList.add("active");
+    gsap.fromTo(next,{opacity:0},{opacity:1,duration:0.8});
+  }});
+}
