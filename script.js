@@ -299,13 +299,13 @@ function checkAnswer(selected) {
 
   const q = questions[currentQuestion];
 
-  // If question has multiple answers
+  // Support both single and multiple correct answers
   let correctAnswers;
 
   if (q.answers) {
     correctAnswers = q.answers;
   } else {
-    correctAnswers = [q.answer]; // convert single answer into array
+    correctAnswers = [q.answer];
   }
 
   if (correctAnswers.includes(selected)) {
@@ -315,13 +315,20 @@ function checkAnswer(selected) {
     if (currentQuestion < questions.length) {
       loadQuestion();
     } else {
-      progressBar.style.width = "100%";
-      setTimeout(() => {
-      goToPage(quiz, letterPage);
 
-setTimeout(() => {
-  cinematicLetterEntrance();
-}, 600);
+      progressBar.style.width = "100%";
+
+      setTimeout(() => {
+
+        goToPage(quiz, letterPage);
+
+        setTimeout(() => {
+          cinematicLetterEntrance();
+        }, 600);
+
+      }, 800); // ✅ THIS WAS MISSING
+
+    }
 
   } else {
 
@@ -332,6 +339,7 @@ setTimeout(() => {
 
   }
 }
+
 
 
 /* =========================
