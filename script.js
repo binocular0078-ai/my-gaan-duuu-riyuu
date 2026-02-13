@@ -1,3 +1,7 @@
+
+const proposalMusic = new Audio("music/proposal.mp3");
+proposalMusic.volume = 0;
+
 /* =========================
    FLOATING HEART PARTICLES
 ========================= */
@@ -100,8 +104,13 @@ unlockBtn.addEventListener("click", () => {
 
     goToPage(lockScreen, proposal);
 
-    musicBar.style.display = "flex";
-    bgMusic.play();
+    // STOP old background music if playing
+    bgMusic.pause();
+    bgMusic.currentTime = 0;
+
+    // Play proposal music with fade in
+    proposalMusic.play();
+    gsap.to(proposalMusic, { volume: 1, duration: 3 });
 
   } else {
     errorMsg.innerText = "Wrong Date ❤️";
@@ -131,6 +140,9 @@ playPause.addEventListener("click", () => {
 /* =========================
    PROPOSAL PAGE
 ========================= */
+
+const proposalMusic = new Audio("music/proposal.mp3");
+proposalMusic.volume = 0;
 
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
