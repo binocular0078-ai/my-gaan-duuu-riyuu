@@ -64,6 +64,43 @@ canvas {
   max-width: 420px;
   width: 100%;
 }
+/* =============================
+   LOCK SCREEN BACKGROUND
+============================= */
+
+#lock-screen {
+  position: relative;
+  overflow: hidden;
+}
+
+.lock-bg {
+  position: absolute;
+  width: 110%;
+  height: 110%;
+  top: -5%;
+  left: -5%;
+  background: url("images/your-bg.png") center/cover no-repeat;
+  filter: blur(6px);
+  z-index: -1;
+  animation: slowZoom 18s ease-in-out infinite alternate;
+}
+
+/* Dark romantic overlay */
+.lock-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(10, 0, 20, 0.6),
+    rgba(90, 0, 40, 0.6)
+  );
+}
+
+/* Slow cinematic zoom */
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); }
+}
 
 /* =============================
    LOCK SCREEN
