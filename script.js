@@ -176,7 +176,7 @@ yesBtn.addEventListener("click", () => {
       proposalMusic.pause();
       proposalMusic.currentTime = 0;
 
-      // Start romantic background music safely
+      // Start romantic background music
       bgMusic.volume = 0;
 
       bgMusic.play().then(() => {
@@ -189,36 +189,13 @@ yesBtn.addEventListener("click", () => {
     }
   });
 
-  // Transition page
+  // Transition to quiz
   setTimeout(() => {
     goToPage(proposal, quiz);
     loadQuestion();
   }, 1000);
 
 });
-
-
-  // Transition after short delay
-  setTimeout(() => {
-    goToPage(proposal, quiz);
-    loadQuestion();
-  }, 1000);
-
-  gsap.to(proposalMusic, {
-    volume: 0,
-    duration: 2,
-    onComplete: () => {
-      proposalMusic.pause();
-      proposalMusic.currentTime = 0;
-    }
-  });
-
-  setTimeout(() => {
-    goToPage(proposal, quiz);
-    loadQuestion();
-  }, 1000);
-});
-
 
 /* =========================
    QUIZ SECTION
