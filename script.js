@@ -187,31 +187,6 @@ yesBtn.addEventListener("click", () => {
 
 });
 
-
-  // Heart burst animation
-  for (let i = 0; i < 25; i++) {
-    let burst = document.createElement("div");
-    burst.className = "burstHeart";
-    document.body.appendChild(burst);
-
-    burst.style.left = Math.random() * 100 + "%";
-    burst.style.top = Math.random() * 100 + "%";
-
-    gsap.to(burst, {
-      y: -200,
-      opacity: 0,
-      duration: 1.5,
-      onComplete: () => burst.remove()
-    });
-  }
-
-  setTimeout(() => {
-    goToPage(proposal, quiz);
-    loadQuestion();
-  }, 800);
-});
-
-
 /* =========================
    QUIZ SECTION
 ========================= */
