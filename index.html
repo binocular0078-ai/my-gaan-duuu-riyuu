@@ -8,8 +8,7 @@
 <!-- Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-
-<!-- GSAP Animation Library -->
+<!-- GSAP -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
 <link rel="stylesheet" href="style.css">
@@ -23,12 +22,9 @@
 <!-- ================= LOCK SCREEN ================= -->
 <section id="lock-screen" class="page active">
 
-  <!-- Background Image -->
   <div class="lock-bg"></div>
 
-  <!-- Glass Card -->
   <div class="glass-card">
-
     <h1 class="lock-title">Enter The Special Date</h1>
 
     <p class="hint-text">
@@ -42,13 +38,9 @@
     <button id="unlockBtn">Unlock My Heart</button>
 
     <p id="errorMsg"></p>
-
   </div>
 
 </section>
-
-
-   
 
 
 <!-- ================= MUSIC BAR ================= -->
@@ -62,18 +54,16 @@
 </div>
 
 <audio id="bgMusic" loop>
-  <!-- IMPORTANT: match your music file name -->
   <source src="music/romantic.mp3" type="audio/mpeg">
 </audio>
 
 
-<!-- Proposal Image -->
-  <div class="proposal-bg"></div>
+<!-- ================= PROPOSAL PAGE ================= -->
+<section id="proposal" class="page">
 
-  <!-- Overlay -->
+  <div class="proposal-bg"></div>
   <div class="proposal-overlay"></div>
 
-  <!-- Content -->
   <div class="proposal-content">
     <h1 class="bigText">Will You Be My Valentine?</h1>
 
@@ -101,9 +91,7 @@
 <section id="letterPage" class="page">
 
   <div class="envelope" id="envelope">
-    <div class="letter" id="letter">
-      <!-- Typed text will appear here -->
-    </div>
+    <div class="letter" id="letter"></div>
   </div>
 
   <button id="continueBtn">Continue</button>
@@ -115,27 +103,15 @@
 <section id="memory" class="page">
 
   <div class="memory-container">
-
-    <div class="memory-item">
-      💖 Our First Smile
-    </div>
-
-    <div class="memory-item">
-      💖 Our Crazy Talks
-    </div>
-
-    <div class="memory-item">
-      💖 Our Forever Promise
-    </div>
-
+    <div class="memory-item">💖 Our First Smile</div>
+    <div class="memory-item">💖 Our Crazy Talks</div>
+    <div class="memory-item">💖 Our Forever Promise</div>
   </div>
 
   <h1 class="ending">Forever With You ❤️</h1>
 
 </section>
 
-
-<!-- Script -->
 <script src="script.js"></script>
 
 </body>
