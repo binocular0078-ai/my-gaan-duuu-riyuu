@@ -323,7 +323,6 @@ setTimeout(() => {
   cinematicLetterEntrance();
 }, 600);
 
-
   } else {
 
     gsap.fromTo(questionContainer,
