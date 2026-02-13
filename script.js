@@ -448,7 +448,57 @@ closeLetterBtn.addEventListener("click", () => {
 // CONTINUE
 continueBtn.addEventListener("click", () => {
   goToPage(letterPage, memory);
+setTimeout(revealMemories, 600);
 });
 
+/* ================= MEMORY PAGE ANIMATIONS ================= */
+
+const memoryCards = document.querySelectorAll(".memory-card");
+const foreverText = document.querySelector(".forever-text");
+
+function revealMemories() {
+
+  memoryCards.forEach((card, index) => {
+
+    gsap.to(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: "top 80%"
+      },
+      opacity: 1,
+      y: 0,
+      duration: 1,
+      delay: index * 0.2
+    });
+
+  });
+
+  gsap.to(foreverText, {
+    scrollTrigger: {
+      trigger: foreverText,
+      start: "top 80%"
+    },
+    opacity: 1,
+    scale: 1,
+    duration: 1.5
+  });
+}
+
+/* ================= MEMORY MUSIC ================= */
+
+const memoryMusicBtn = document.getElementById("memoryMusicBtn");
+const memoryMusic = document.getElementById("memoryMusic");
+
+memoryMusicBtn.addEventListener("click", () => {
+
+  if (memoryMusic.paused) {
+    memoryMusic.play();
+    memoryMusicBtn.innerText = "Pause 🎵";
+  } else {
+    memoryMusic.pause();
+    memoryMusicBtn.innerText = "Play Our Song 🎵";
+  }
+
+});
 
 
