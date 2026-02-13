@@ -1,5 +1,3 @@
-
-
 /* =========================
    FLOATING HEART PARTICLES
 ========================= */
@@ -17,9 +15,7 @@ window.addEventListener("resize", resizeCanvas);
 let hearts = [];
 
 class Heart {
-  constructor() {
-    this.reset();
-  }
+  constructor() { this.reset(); }
   reset() {
     this.x = Math.random() * canvas.width;
     this.y = canvas.height + 20;
@@ -40,16 +36,11 @@ class Heart {
   }
 }
 
-for (let i = 0; i < 60; i++) {
-  hearts.push(new Heart());
-}
+for (let i = 0; i < 60; i++) hearts.push(new Heart());
 
 function animateHearts() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  hearts.forEach(h => {
-    h.update();
-    h.draw();
-  });
+  hearts.forEach(h => { h.update(); h.draw(); });
   requestAnimationFrame(animateHearts);
 }
 animateHearts();
@@ -72,6 +63,9 @@ const errorMsg = document.getElementById("errorMsg");
 const musicBar = document.getElementById("musicBar");
 const bgMusic = document.getElementById("bgMusic");
 const playPause = document.getElementById("playPause");
+
+const proposalMusic = new Audio("music/proposal.mp3");
+proposalMusic.volume = 0;
 
 
 /* =========================
@@ -102,18 +96,19 @@ unlockBtn.addEventListener("click", () => {
 
     goToPage(lockScreen, proposal);
 
-    // STOP old background music if playing
-    bgMusic.pause();
-    bgMusic.currentTime = 0;
+    // SHOW MUSIC BAR
+    musicBar.style.display = "flex";
 
     // Play proposal music with fade in
     proposalMusic.play();
-    gsap.to(proposalMusic, { volume: 1, duration: 3 });
+    gsap.to(proposalMusic, { volume: 0.6, duration: 2 });
+
+    playPause.innerText = "⏸";
 
   } else {
     errorMsg.innerText = "Wrong Date ❤️";
-    gsap.fromTo(lockScreen, 
-      { x: -10 }, 
+    gsap.fromTo(lockScreen,
+      { x: -10 },
       { x: 10, repeat: 5, yoyo: true, duration: 0.1 }
     );
   }
@@ -121,16 +116,31 @@ unlockBtn.addEventListener("click", () => {
 
 
 /* =========================
-   MUSIC BAR
+   MUSIC BAR CONTROLS
 ========================= */
 
 playPause.addEventListener("click", () => {
-  if (bgMusic.paused) {
-    bgMusic.play();
-    playPause.innerText = "⏸";
+
+  if (proposal.classList.contains("active")) {
+
+    if (proposalMusic.paused) {
+      proposalMusic.play();
+      playPause.innerText = "⏸";
+    } else {
+      proposalMusic.pause();
+      playPause.innerText = "▶";
+    }
+
   } else {
-    bgMusic.pause();
-    playPause.innerText = "▶";
+
+    if (bgMusic.paused) {
+      bgMusic.play();
+      playPause.innerText = "⏸";
+    } else {
+      bgMusic.pause();
+      playPause.innerText = "▶";
+    }
+
   }
 });
 
@@ -139,9 +149,6 @@ playPause.addEventListener("click", () => {
    PROPOSAL PAGE
 ========================= */
 
-const proposalMusic = new Audio("music/proposal.mp3");
-proposalMusic.volume = 0;
-
 const yesBtn = document.getElementById("yesBtn");
 const noBtn = document.getElementById("noBtn");
 
@@ -149,7 +156,6 @@ let noClicks = 0;
 
 noBtn.addEventListener("click", () => {
   noClicks++;
-
   if (noClicks === 1) noBtn.innerText = "Why?";
   else if (noClicks === 2) noBtn.innerText = "Mar khabi?";
   else if (noClicks === 3) noBtn.innerText = "Breakup done";
@@ -160,14 +166,8 @@ noBtn.addEventListener("click", () => {
   }
 });
 
-document.body.style.background = "#ff4da6";
-setTimeout(() => {
-  document.body.style.background = "";
-}, 200);
-
 yesBtn.addEventListener("click", () => {
 
-  // Fade out proposal music smoothly
   gsap.to(proposalMusic, {
     volume: 0,
     duration: 2,
@@ -177,15 +177,12 @@ yesBtn.addEventListener("click", () => {
     }
   });
 
-  
-
-  // Wait 1 second before changing page (for emotion)
   setTimeout(() => {
     goToPage(proposal, quiz);
     loadQuestion();
   }, 1000);
-
 });
+
 
 /* =========================
    QUIZ SECTION
@@ -246,8 +243,8 @@ function checkAnswer(selected) {
       }, 800);
     }
   } else {
-    gsap.fromTo(questionContainer, 
-      { x: -10 }, 
+    gsap.fromTo(questionContainer,
+      { x: -10 },
       { x: 10, repeat: 4, yoyo: true, duration: 0.1 }
     );
   }
