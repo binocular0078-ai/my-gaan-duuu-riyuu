@@ -204,8 +204,6 @@ yesBtn.addEventListener("click", () => {
     loadQuestion();
   }, 1000);
 
-});
-
   gsap.to(proposalMusic, {
     volume: 0,
     duration: 2,
